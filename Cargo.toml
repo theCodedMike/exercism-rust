@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "reverse-string"
+]
+resolver = "2"
+
