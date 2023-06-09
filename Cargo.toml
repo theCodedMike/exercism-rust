@@ -1,7 +1,8 @@
 [workspace]
 members = [
     "reverse-string",
-    "gigasecond"
+    "gigasecond",
+    "clock"
 ]
 resolver = "2"
 
