@@ -14,43 +14,16 @@ impl Clock {
         let mut res_hours = 0;
         let mut res_minutes = 0;
 
-        if hours >= 0 && minutes >= 0 {
-            res_minutes = minutes % MINUTES_PER_HOUR;
-            res_hours = ((minutes / MINUTES_PER_HOUR) + hours) % HOURS_PER_DAY;
-        } else if hours >= 0 && minutes < 0 {
-            res_minutes = minutes % MINUTES_PER_HOUR;
-            if res_minutes != 0 {
-                res_minutes += MINUTES_PER_HOUR;
-            }
+        res_minutes = minutes % MINUTES_PER_HOUR;
+        if res_minutes < 0 {
+            res_minutes += MINUTES_PER_HOUR;
+            // res_minutes < 0，说明还需要向res_hours再借1位
+            res_hours -= 1;
+        }
 
-            res_hours = minutes / MINUTES_PER_HOUR;
-            if res_minutes != 0 {
-                res_hours -= 1;
-            }
-            res_hours = (res_hours % HOURS_PER_DAY) + (hours % HOURS_PER_DAY);
-            if res_hours < 0 {
-                res_hours += HOURS_PER_DAY;
-            }
-        } else if hours < 0 && minutes >= 0 {
-            res_minutes = minutes % MINUTES_PER_HOUR;
-            res_hours = hours % HOURS_PER_DAY + minutes / MINUTES_PER_HOUR;
-            if res_hours < 0 {
-                res_hours += HOURS_PER_DAY;
-            }
-        } else {
-            res_minutes = minutes % MINUTES_PER_HOUR;
-            if res_minutes != 0 {
-                res_minutes += MINUTES_PER_HOUR;
-            }
-            res_hours = minutes / MINUTES_PER_HOUR;
-            if res_minutes != 0 {
-                res_hours -= 1;
-            }
-
-            res_hours = ((res_hours % HOURS_PER_DAY) + (hours % HOURS_PER_DAY)) % HOURS_PER_DAY;
-            if res_hours < 0 {
-                res_hours += HOURS_PER_DAY;
-            }
+        res_hours = (res_hours + minutes / MINUTES_PER_HOUR + hours) % HOURS_PER_DAY;
+        if res_hours < 0 {
+            res_hours += HOURS_PER_DAY;
         }
 
         Clock {
@@ -60,38 +33,9 @@ impl Clock {
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        let total_minutes = self.minutes + minutes;
-        let mut res_minutes = 0;
-        let mut res_hours = 0;
+        let total_minutes = self.hours * MINUTES_PER_HOUR + self.minutes + minutes;
 
-        if total_minutes >= 0 {
-            res_minutes = total_minutes % MINUTES_PER_HOUR;
-            res_hours = ((total_minutes / MINUTES_PER_HOUR) + self.hours) % HOURS_PER_DAY;
-        } else {
-            res_minutes = total_minutes % MINUTES_PER_HOUR;
-            if res_minutes != 0 {
-                res_minutes += MINUTES_PER_HOUR;
-            }
-
-            res_hours = total_minutes / MINUTES_PER_HOUR;
-            if res_minutes != 0 {
-                res_hours -= 1;
-            }
-            let total_hours = self.hours + res_hours;
-            if total_hours >= 0 {
-                res_hours = total_hours % HOURS_PER_DAY;
-            } else {
-                res_hours = total_hours % HOURS_PER_DAY;
-                if res_hours != 0 {
-                    res_hours += HOURS_PER_DAY;
-                }
-            }
-        }
-
-        Clock {
-            hours: res_hours,
-            minutes: res_minutes,
-        }
+        Clock::new(0, total_minutes)
     }
 }
 
