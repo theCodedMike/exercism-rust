@@ -1,3 +1,4 @@
+#![allow(unused)]
 use std::fmt::{Display, Formatter};
 
 const MINUTES_PER_HOUR: i32 = 60;

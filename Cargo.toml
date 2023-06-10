@@ -2,7 +2,8 @@
 members = [
     "reverse-string",
     "gigasecond",
-    "clock"
+    "clock",
+    "anagram"
 ]
 resolver = "2"
 
