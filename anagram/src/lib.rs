@@ -1,45 +1,25 @@
 use std::collections::HashSet;
 
 pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'a str> {
-    let mut res = HashSet::new();
-    let word = word.to_lowercase();
-    if word.is_empty() {
-        return res;
-    }
-    let sorted_word = to_chars_and_sort(&word);
+    let word_lower = word.to_lowercase();
+    let word_sorted = get_sorted(&word_lower);
 
-    let mut possible_word;
-    let mut possible_sorted_word;
-    for &p in possible_anagrams {
-        possible_word = p.to_lowercase();
-        if possible_word.is_empty() {
-            continue;
-        }
-        if word == possible_word {
-            continue;
-        }
-
-        possible_sorted_word = to_chars_and_sort(&possible_word);
-
-        if sorted_word == possible_sorted_word {
-            res.insert(p);
-        }
-
-        possible_word.clear();
-        possible_sorted_word.clear();
-    }
-
-    res
+    possible_anagrams
+        .iter()
+        .filter(|candidate| {
+            let candidate_lower = candidate.to_lowercase();
+            !candidate_lower.is_empty()
+                && word_lower != candidate_lower
+                && word_sorted == get_sorted(&candidate_lower)
+        })
+        .copied()
+        .collect()
 }
 
-fn to_chars_and_sort(word: &str) -> Vec<char> {
-    let mut sorted_vec = vec![];
+fn get_sorted(word: &str) -> Vec<char> {
+    let mut word_sorted = word.chars().collect::<Vec<_>>();
 
-    for char in word.chars() {
-        sorted_vec.push(char);
-    }
+    word_sorted.sort_unstable();
 
-    sorted_vec.sort_unstable();
-
-    sorted_vec
+    word_sorted
 }
