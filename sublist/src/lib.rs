@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum Comparison {
     Equal,
@@ -9,49 +7,30 @@ pub enum Comparison {
 }
 
 pub fn sublist<T: PartialEq>(first_list: &[T], second_list: &[T]) -> Comparison {
-    let first_len = first_list.len();
-    let second_len = second_list.len();
-
-    let mut res = Comparison::Unequal;
-
-    match first_len.cmp(&second_len) {
-        Ordering::Less => {
-            if determine_short_contained_within_long(first_list, second_list) {
-                res = Comparison::Sublist;
+    match (first_list.len(), second_list.len()) {
+        (0, 0) => Comparison::Equal,
+        (_, 0) => Comparison::Superlist,
+        (0, _) => Comparison::Sublist,
+        (first_len, second_len) if first_len < second_len => {
+            if second_list.windows(first_len).any(|w| w.eq(first_list)) {
+                Comparison::Sublist
+            } else {
+                Comparison::Unequal
             }
         }
-        Ordering::Equal => {
-            if determine_short_contained_within_long(first_list, second_list) {
-                res = Comparison::Equal;
+        (first_len, second_len) if first_len > second_len => {
+            if first_list.windows(second_len).any(|w| w.eq(second_list)) {
+                Comparison::Superlist
+            } else {
+                Comparison::Unequal
             }
         }
-        Ordering::Greater => {
-            if determine_short_contained_within_long(second_list, first_list) {
-                res = Comparison::Superlist;
+        _ => {
+            if first_list.eq(second_list) {
+                Comparison::Equal
+            } else {
+                Comparison::Unequal
             }
         }
     }
-
-    res
-}
-
-fn determine_short_contained_within_long<T: PartialEq>(short: &[T], long: &[T]) -> bool {
-    let short_len = short.len();
-    let long_len = long.len();
-
-    let mut i = 0;
-
-    while i + short_len <= long_len {
-        if long
-            .get(i..i + short_len)
-            .filter(|&s| s.eq(short))
-            .is_some()
-        {
-            return true;
-        }
-
-        i += 1;
-    }
-
-    false
 }
