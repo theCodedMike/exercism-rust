@@ -5,7 +5,8 @@ members = [
     "clock",
     "anagram",
     "space-age",
-    "sublist"
+    "sublist",
+    "minesweeper"
 ]
 resolver = "2"
 
