@@ -10,27 +10,24 @@ pub fn annotate(minefield: &[&str]) -> Vec<String> {
         return res;
     }
 
-    for i in 0..rows {
-        let mut row_str = String::new();
+    for (i, &row_str) in minefield.iter().enumerate() {
+        let mut res_row = String::new();
 
-        for j in 0..cols {
-            let c = &minefield[i][j..j + 1];
-            match c {
-                " " => {
+        for (j, ch) in row_str.chars().enumerate() {
+            match ch {
+                ' ' => {
                     let count = get_mine_count(i, j, minefield, rows as isize, cols as isize);
                     if count == 0 {
-                        row_str.push_str(" ");
+                        res_row.push(ch);
                     } else {
-                        row_str.push_str(count.to_string().as_str());
+                        res_row.push_str(count.to_string().as_str());
                     }
                 }
-                _ => {
-                    row_str.push_str(c);
-                }
+                _ => res_row.push(ch),
             }
         }
 
-        res.push(row_str);
+        res.push(res_row);
     }
 
     res
