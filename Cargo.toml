@@ -7,7 +7,8 @@ members = [
     "space-age",
     "sublist",
     "minesweeper",
-    "luhn"
+    "luhn",
+    "parallel-letter-frequency"
 ]
 resolver = "2"
 
