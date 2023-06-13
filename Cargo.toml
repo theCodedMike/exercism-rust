@@ -6,7 +6,8 @@ members = [
     "anagram",
     "space-age",
     "sublist",
-    "minesweeper"
+    "minesweeper",
+    "luhn"
 ]
 resolver = "2"
 
