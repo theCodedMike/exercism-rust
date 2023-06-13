@@ -2,12 +2,12 @@
 extern crate parallel_letter_frequency;
 extern crate test;
 
-/// test bench_large_parallel   ... bench:   1,661,655 ns/iter (+/- 213,317)
-/// test bench_large_sequential ... bench:     376,036 ns/iter (+/- 9,625)
-/// test bench_small_parallel   ... bench:     168,867 ns/iter (+/- 267,978)
-/// test bench_small_sequential ... bench:      12,998 ns/iter (+/- 827)
-/// test bench_tiny_parallel    ... bench:     149,530 ns/iter (+/- 17,520)
-/// test bench_tiny_sequential  ... bench:          69 ns/iter (+/- 2)
+/// test bench_large_parallel   ... bench:     270,764 ns/iter (+/- 44,031)
+/// test bench_large_sequential ... bench:     370,735 ns/iter (+/- 14,860)
+/// test bench_small_parallel   ... bench:     165,316 ns/iter (+/- 17,196)
+/// test bench_small_sequential ... bench:      12,355 ns/iter (+/- 525)
+/// test bench_tiny_parallel    ... bench:     162,889 ns/iter (+/- 13,493)
+/// test bench_tiny_sequential  ... bench:         131 ns/iter (+/- 401)
 use std::collections::HashMap;
 use test::Bencher;
 
