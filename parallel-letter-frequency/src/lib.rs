@@ -24,14 +24,15 @@ pub fn frequency(input: &[&str], worker_count: usize) -> HashMap<char, usize> {
                         .iter()
                         .filter(|&&line| !line.trim().is_empty())
                         .for_each(|&line| {
-                            line.to_lowercase().chars().for_each(|c| {
-                                if c.is_alphabetic() {
+                            line.to_lowercase()
+                                .chars()
+                                .filter(|c| c.is_alphabetic())
+                                .for_each(|c| {
                                     frequency
                                         .entry(c)
                                         .and_modify(|count| *count += 1)
                                         .or_insert(1);
-                                }
-                            })
+                                })
                         }),
                 }
 
