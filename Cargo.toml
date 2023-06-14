@@ -1,14 +1,15 @@
 [workspace]
 members = [
-    "reverse-string",
-    "gigasecond",
-    "clock",
-    "anagram",
-    "space-age",
-    "sublist",
-    "minesweeper",
-    "luhn",
-    "parallel-letter-frequency"
+    "reverse-string",                 # 1
+    "gigasecond",                     # 2
+    "clock",                          # 3
+    "anagram",                        # 4
+    "space-age",                      # 5
+    "sublist",                        # 6
+    "minesweeper",                    # 7
+    "luhn",                           # 8
+    "parallel-letter-frequency",      # 9
+    "macros",                         # 10
 ]
 resolver = "2"
 
