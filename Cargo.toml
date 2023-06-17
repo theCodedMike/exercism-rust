@@ -11,6 +11,7 @@ members = [
     "parallel-letter-frequency",      # 9
     "macros",                         # 10
     "poker",                          # 11
+    "forth",                          # 12
 ]
 resolver = "2"
 
