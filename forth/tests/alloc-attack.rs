@@ -31,15 +31,15 @@ fn alloc_attack() {
     f.eval(": o n n ;").unwrap();
     f.eval(": p o o ;").unwrap();
     f.eval(": q p p ;").unwrap();
-    //f.eval(": r q q ;").unwrap();
-    //f.eval(": s r r ;").unwrap();
-    //f.eval(": t s s ;").unwrap();
-    //f.eval(": u t t ;").unwrap();
-    //f.eval(": v u u ;").unwrap();
-    //f.eval(": w v v ;").unwrap();
-    //f.eval(": x w w ;").unwrap();
-    //f.eval(": y x x ;").unwrap();
-    //f.eval(": z y y ;").unwrap();
+    f.eval(": r q q ;").unwrap();
+    f.eval(": s r r ;").unwrap();
+    f.eval(": t s s ;").unwrap();
+    f.eval(": u t t ;").unwrap();
+    f.eval(": v u u ;").unwrap();
+    f.eval(": w v v ;").unwrap();
+    f.eval(": x w w ;").unwrap();
+    f.eval(": y x x ;").unwrap();
+    f.eval(": z y y ;").unwrap();
 
     // On an implementation with eager expansion of sub-custom-words,
     // `z`'s definition is 2**26 items long. Assuming the implementation

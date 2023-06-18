@@ -1,17 +1,17 @@
 [workspace]
 members = [
-    "reverse-string",                 # 1
-    "gigasecond",                     # 2
-    "clock",                          # 3
-    "anagram",                        # 4
-    "space-age",                      # 5
-    "sublist",                        # 6
-    "minesweeper",                    # 7
-    "luhn",                           # 8
-    "parallel-letter-frequency",      # 9
-    "macros",                         # 10
-    "poker",                          # 11
-    "forth",                          # 12
+    "reverse-string",                 # 1  easy
+    "gigasecond",                     # 2  easy
+    "clock",                          # 3  medium
+    "anagram",                        # 4  medium
+    "space-age",                      # 5  medium
+    "sublist",                        # 6  medium
+    "minesweeper",                    # 7  medium
+    "luhn",                           # 8  easy
+    "parallel-letter-frequency",      # 9  medium
+    "macros",                         # 10 hard
+    "poker",                          # 11 hard
+    "forth",                          # 12 hard
 ]
 resolver = "2"
 

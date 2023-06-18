@@ -1,14 +1,28 @@
-use std::collections::HashMap;
-use std::ops::Index;
-
 pub type Value = i32;
 pub type Result = std::result::Result<(), Error>;
 
+#[derive(Debug, Eq, Hash, PartialEq, Copy, Clone)]
+pub enum Operation {
+    Add,
+    Subtract,
+    Multiply,
+    Divide,
+    Dup,
+    Drop,
+    Swap,
+    Over,
+    Number(Value),
+    Call(usize),
+}
+#[derive(Debug)]
+struct Definition {
+    name: String,
+    body: Vec<Operation>,
+}
 pub struct Forth {
     stack: Vec<Value>,
-    syntax: HashMap<String, String>,
+    commands: Vec<Definition>,
 }
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum Error {
     DivisionByZero,
@@ -20,189 +34,186 @@ pub enum Error {
 impl Forth {
     pub fn new() -> Forth {
         Forth {
-            stack: Vec::new(),
-            syntax: HashMap::new(),
+            stack: vec![],
+            commands: vec![],
         }
     }
 
     pub fn stack(&self) -> &[Value] {
-        self.stack.as_ref()
+        &self.stack
+    }
+
+    pub fn integer_operation(&mut self, fun: fn(i32, i32) -> i32) -> Result {
+        if self.stack.len() < 2 {
+            return Err(Error::StackUnderflow);
+        };
+
+        let op2: i32 = self.stack.pop().unwrap();
+        let op1: i32 = self.stack.pop().unwrap();
+        if op2 == 0 && fun(32, 2) == 16 {
+            return Err(Error::DivisionByZero);
+        }
+        self.stack.push(fun(op1, op2));
+
+        return Ok(());
+    }
+
+    pub fn duplicate(&mut self) -> Result {
+        if self.stack.len() < 1 {
+            return Err(Error::StackUnderflow);
+        };
+        let num = self.stack.last().unwrap();
+        self.stack.push(*num);
+
+        Ok(())
+    }
+
+    pub fn drop(&mut self) -> Result {
+        if self.stack.len() < 1 {
+            return Err(Error::StackUnderflow);
+        };
+        self.stack.pop();
+
+        Ok(())
+    }
+
+    pub fn swap(&mut self) -> Result {
+        let len = self.stack.len();
+        if len < 2 {
+            return Err(Error::StackUnderflow);
+        };
+        self.stack.swap(len - 2, len - 1);
+
+        Ok(())
+    }
+
+    pub fn over(&mut self) -> Result {
+        if self.stack.len() < 2 {
+            return Err(Error::StackUnderflow);
+        };
+        let num = self.stack.get(self.stack.len() - 2).unwrap();
+        self.stack.push(*num);
+
+        Ok(())
+    }
+
+    pub fn execute(&mut self, operand: Operation) -> Result {
+        match operand {
+            Operation::Add => self.integer_operation(|a, b| a + b),
+            Operation::Subtract => self.integer_operation(|a, b| a - b),
+            Operation::Multiply => self.integer_operation(|a, b| a * b),
+            Operation::Divide => self.integer_operation(|a, b| a / b),
+            Operation::Dup => self.duplicate(),
+            Operation::Drop => self.drop(),
+            Operation::Swap => self.swap(),
+            Operation::Over => self.over(),
+            Operation::Number(num) => {
+                self.stack.push(num);
+                Ok(())
+            }
+            Operation::Call(pointer) => {
+                let commands: Vec<Operation> =
+                    self.commands[pointer].body.iter().map(|o| *o).collect(); // copy the enum
+                for command in commands {
+                    self.execute(command)?;
+                }
+                Ok(())
+            }
+        }
+    }
+
+    pub fn find_command_index(&self, input: &String) -> Option<usize> {
+        for (index, definition) in self.commands.iter().enumerate().rev() {
+            if definition.name == input.to_string() {
+                return Some(index);
+            }
+        }
+        None
+    }
+
+    pub fn string_to_command(&self, input: String) -> std::result::Result<Operation, Error> {
+        let check = self.find_command_index(&input);
+        match check {
+            Some(pointer) => return Ok(Operation::Call(pointer)),
+            None => {}
+        };
+        match input.parse::<i32>() {
+            Ok(num) => Ok(Operation::Number(num)),
+            Err(_) => match input.trim() {
+                "+" => Ok(Operation::Add),
+                "-" => Ok(Operation::Subtract),
+                "*" => Ok(Operation::Multiply),
+                "/" => Ok(Operation::Divide),
+                "dup" => Ok(Operation::Dup),
+                "drop" => Ok(Operation::Drop),
+                "swap" => Ok(Operation::Swap),
+                "over" => Ok(Operation::Over),
+                _ => Err(Error::UnknownWord),
+            },
+        }
+    }
+
+    pub fn string_to_commands(&self, input: String) -> std::result::Result<Vec<Operation>, Error> {
+        let commands = input
+            .split(' ')
+            .map(|i| self.string_to_command(i.to_string()).unwrap())
+            .collect();
+        Ok(commands)
     }
 
     pub fn eval(&mut self, input: &str) -> Result {
-        let len = input.len();
-        let mut commands = vec![];
+        let mut building: String = "".to_string();
+        let mut working_new_word = false;
+        let mut learning_command = false;
+        let mut new_word = "".to_string();
+        let lowercased = input.to_lowercase();
 
-        if input.contains(":") {
-            let colon_idx = match input.find(":") {
-                None => return Err(Error::InvalidWord),
-                Some(idx) => idx,
-            };
-
-            let semicolon_idx = match input.rfind(";") {
-                None => return Err(Error::InvalidWord),
-                Some(idx) => idx,
-            };
-
-            if colon_idx != 0 {
-                commands.push(input.index(..colon_idx));
+        for c in lowercased.chars() {
+            if c == ' ' && building.trim().len() > 0 {
+                building = building.trim().to_string();
+                if working_new_word {
+                    new_word = building;
+                    building = "".to_string();
+                    working_new_word = false;
+                    learning_command = true;
+                    continue;
+                } else if learning_command == false {
+                    self.execute(self.string_to_command(building)?)?;
+                    building = "".to_string();
+                    continue;
+                }
             }
-            if semicolon_idx != len - 1 {
-                commands.push(input.index(semicolon_idx + 1..));
+            if c == ':' {
+                working_new_word = true;
+                continue;
             }
-
-            let original_command = input
-                .index(colon_idx..=semicolon_idx)
-                .split(":")
-                .filter(|&w| !w.is_empty())
-                .collect::<Vec<_>>();
-
-            for x in original_command {
-                let words = x
-                    .split_whitespace()
-                    .filter(|&w| !w.eq(";"))
-                    .map(|w| w.to_lowercase())
-                    .collect::<Vec<_>>();
-                let key = words[0].to_lowercase();
-                if key.parse::<Value>().is_ok() {
+            if c == ';' {
+                learning_command = false;
+                building = building.trim().to_string();
+                if new_word.chars().all(char::is_numeric) {
                     return Err(Error::InvalidWord);
                 }
-                let mut val = words.index(1..).join(" ").to_string();
-
-                for (k, v) in self.syntax.iter() {
-                    if val.contains(k) {
-                        val = val.replace(k, v);
-                    }
-                }
-
-                self.syntax.insert(key, val);
+                let existing_commands = self.string_to_commands(building)?;
+                let memorize = Definition {
+                    name: new_word,
+                    body: existing_commands,
+                };
+                self.commands.push(memorize);
+                new_word = "".to_string();
+                building = "".to_string();
+                continue;
             }
-        } else {
-            commands.push(input);
+            building.push(c);
         }
 
-        // replace
-        let new_commands = commands
-            .iter()
-            .map(|&c| {
-                let mut new = c.to_string();
-
-                for (key, val) in self.syntax.iter() {
-                    new = new
-                        .split_whitespace()
-                        .map(|w| if w.eq_ignore_ascii_case(key) { val } else { w })
-                        .collect::<Vec<_>>()
-                        .join(" ");
-                }
-
-                new
-            })
-            .collect::<Vec<_>>();
-
-        // process
-        for command in new_commands {
-            for word in command.split_whitespace() {
-                if let Err(err) = self.process_word(word) {
-                    return Err(err);
-                }
-            }
+        if working_new_word || learning_command {
+            return Err(Error::InvalidWord);
+        }
+        if building.len() > 0 {
+            building = building.trim().to_string();
+            self.execute(self.string_to_command(building)?)?;
         }
 
         Ok(())
-    }
-
-    fn process_word(&mut self, word: &str) -> Result {
-        match word {
-            "0" | _ if word.parse::<Value>().is_ok() => {
-                // process digit
-                self.stack.push(word.parse::<Value>().unwrap())
-            }
-            "+" | "-" | "*" | "/" => {
-                // get right value of operator
-                let right = match self.stack.pop() {
-                    None => return Err(Error::StackUnderflow),
-                    Some(val) => val,
-                };
-                // get left value of operator
-                let left = match self.stack.pop() {
-                    None => return Err(Error::StackUnderflow),
-                    Some(val) => val,
-                };
-                // operate
-                let res = match integer_arithmetic(left, right, word) {
-                    Ok(res) => res,
-                    Err(err) => return Err(err),
-                };
-
-                self.stack.push(res);
-            }
-            _ if word.eq_ignore_ascii_case("dup") => {
-                let top = match self.stack.last() {
-                    None => return Err(Error::StackUnderflow),
-                    Some(&val) => val,
-                };
-                self.stack.push(top);
-            }
-            _ if word.eq_ignore_ascii_case("drop") => {
-                if let None = self.stack.pop() {
-                    return Err(Error::StackUnderflow);
-                }
-            }
-            _ if word.eq_ignore_ascii_case("swap") => {
-                // get right value of swap
-                let right = match self.stack.pop() {
-                    None => return Err(Error::StackUnderflow),
-                    Some(val) => val,
-                };
-                // get left value of swap
-                let left = match self.stack.pop() {
-                    None => return Err(Error::StackUnderflow),
-                    Some(val) => val,
-                };
-                self.stack.push(right);
-                self.stack.push(left);
-            }
-            _ if word.eq_ignore_ascii_case("over") => {
-                // get right value of over
-                let right = match self.stack.pop() {
-                    None => return Err(Error::StackUnderflow),
-                    Some(val) => val,
-                };
-                // get left value of over
-                let left = match self.stack.pop() {
-                    None => return Err(Error::StackUnderflow),
-                    Some(val) => val,
-                };
-                self.stack.push(left);
-                self.stack.push(right);
-                self.stack.push(left);
-            }
-            _ => {
-                if self.syntax.is_empty() {
-                    return Err(Error::UnknownWord);
-                }
-            }
-        }
-
-        Ok(())
-    }
-}
-
-fn integer_arithmetic(
-    left: Value,
-    right: Value,
-    operator: &str,
-) -> std::result::Result<Value, Error> {
-    match operator {
-        "+" => Ok(left + right),
-        "-" => Ok(left - right),
-        "*" => Ok(left * right),
-        "/" => {
-            if right == 0 {
-                return Err(Error::DivisionByZero);
-            }
-            Ok(left / right)
-        }
-        _ => Err(Error::UnknownWord),
     }
 }
