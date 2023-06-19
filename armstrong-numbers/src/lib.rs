@@ -1,28 +1,18 @@
 pub fn is_armstrong_number(num: u32) -> bool {
-    let mut copy = num;
-    let mut rems = vec![];
+    let rems = convert_num_to_digits(num);
+    let len = rems.len() as u32;
 
-    while copy > 0 {
-        let rem = (copy % 10) as u8;
-        rems.push(rem);
-        copy /= 10;
-    }
-
-    let len = rems.len();
-    let mut sum = 0_u64;
-    for rem in rems {
-        sum += product(len, rem);
-    }
-
-    sum == num as u64
+    rems.iter().map(|&x| x.pow(len)).sum::<u64>() == num as u64
 }
 
-fn product(len: usize, rem: u8) -> u64 {
-    let mut prod = 1_u64;
+fn convert_num_to_digits(mut num: u32) -> Vec<u64> {
+    let mut rems = vec![];
 
-    for _ in 0..len {
-        prod *= rem as u64
+    while num > 0 {
+        let rem = (num % 10) as u64;
+        rems.push(rem);
+        num /= 10;
     }
 
-    prod
+    rems
 }
