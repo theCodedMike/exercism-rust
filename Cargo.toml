@@ -13,6 +13,7 @@ members = [
     "poker",                          # 11 hard
     "forth",                          # 12 hard
     "armstrong-numbers",              # 13 easy
+    "beer-song",                      # 14 easy
 ]
 resolver = "2"
 
