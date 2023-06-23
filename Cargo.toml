@@ -16,6 +16,7 @@ members = [
     "beer-song",                      # 14 easy
     "difference-of-squares",          # 15 easy
     "grains",                         # 16 easy
+    "leap",                           # 17 easy
 ]
 resolver = "2"
 
