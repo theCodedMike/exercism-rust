@@ -17,6 +17,7 @@ members = [
     "difference-of-squares",          # 15 easy
     "grains",                         # 16 easy
     "leap",                           # 17 easy
+    "nth-prime",                      # 18 easy
 ]
 resolver = "2"
 
