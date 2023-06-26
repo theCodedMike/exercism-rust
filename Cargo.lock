@@ -70,6 +70,10 @@ name = "prime_factors"
 version = "1.1.0"
 
 [[package]]
+name = "proverb"
+version = "1.1.0"
+
+[[package]]
 name = "reverse_string"
 version = "1.2.0"
 dependencies = [

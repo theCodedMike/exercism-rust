@@ -19,6 +19,7 @@ members = [
     "leap",                           # 17 easy
     "nth-prime",                      # 18 easy
     "prime-factors",                  # 19 easy
+    "proverb",                        # 20 easy
 ]
 resolver = "2"
 
