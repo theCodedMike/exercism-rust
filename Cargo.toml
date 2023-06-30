@@ -23,6 +23,7 @@ members = [
     "raindrops",                      # 21 easy
     "sum-of-multiples",               # 22 easy
     "bob",                            # 23 easy
+    "high-scores",                    # 24 easy
 ]
 resolver = "2"
 
