@@ -25,6 +25,7 @@ members = [
     "bob",                            # 23 easy
     "high-scores",                    # 24 easy
     "matching-brackets",              # 25 easy
+    "acronym",                        # 26 medium
 ]
 resolver = "2"
 
