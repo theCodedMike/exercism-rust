@@ -24,6 +24,7 @@ members = [
     "sum-of-multiples",               # 22 easy
     "bob",                            # 23 easy
     "high-scores",                    # 24 easy
+    "matching-brackets",              # 25 easy
 ]
 resolver = "2"
 
