@@ -26,6 +26,7 @@ members = [
     "high-scores",                    # 24 easy
     "matching-brackets",              # 25 easy
     "acronym",                        # 26 medium
+    "all-your-base",                  # 27 medium
 ]
 resolver = "2"
 
