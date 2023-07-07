@@ -39,6 +39,10 @@ name = "bob"
 version = "1.6.0"
 
 [[package]]
+name = "bowling"
+version = "1.2.0"
+
+[[package]]
 name = "clock"
 version = "2.4.0"
 

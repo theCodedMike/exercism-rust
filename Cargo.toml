@@ -30,6 +30,7 @@ members = [
     "allergies",                      # 28 medium
     "alphametics",                    # 29 medium
     "binary-search",                  # 30 medium
+    "bowling",                        # 31 medium
 ]
 resolver = "2"
 
