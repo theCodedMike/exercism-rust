@@ -32,6 +32,7 @@ members = [
     "binary-search",                  # 30 medium
     "bowling",                        # 31 medium
     "dot-dsl",                        # 32 medium
+    "etl",                            # 33 medium
 ]
 resolver = "2"
 
