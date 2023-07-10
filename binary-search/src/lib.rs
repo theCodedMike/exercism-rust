@@ -9,9 +9,9 @@ pub fn find<ARRAY: AsRef<[T]>, T: Ord>(array: ARRAY, key: T) -> Option<usize> {
     while left < right {
         mid = (left + right) / 2;
         if key < array[mid] {
-            right -= 1;
+            right = mid;
         } else if key > array[mid] {
-            left += 1;
+            left = mid + 1;
         } else {
             return Some(mid);
         }

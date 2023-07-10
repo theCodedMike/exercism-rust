@@ -34,6 +34,7 @@ members = [
     "dot-dsl",                        # 32 medium
     "etl",                            # 33 medium
     "grade-school",                   # 34 medium
+    "hamming",                        # 35 medium
 ]
 resolver = "2"
 

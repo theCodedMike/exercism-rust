@@ -81,6 +81,10 @@ name = "grains"
 version = "1.2.0"
 
 [[package]]
+name = "hamming"
+version = "2.2.0"
+
+[[package]]
 name = "high-scores"
 version = "4.0.0"
 
