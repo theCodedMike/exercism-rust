@@ -35,6 +35,7 @@ members = [
     "etl",                            # 33 medium
     "grade-school",                   # 34 medium
     "hamming",                        # 35 medium
+    "isbn-verifier",                  # 36 medium
 ]
 resolver = "2"
 
