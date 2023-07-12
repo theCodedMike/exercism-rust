@@ -1,18 +1,18 @@
 /// Return the Hamming distance between the strings,
 /// or None if the lengths are mismatched.
 pub fn hamming_distance(s1: &str, s2: &str) -> Option<usize> {
-    let len1 = s1.len();
-    let len2 = s2.len();
-    if len1 != len2 {
-        return None;
-    }
+    let mut distance = 0;
 
-    let mut dist = 0;
-    for i in 0..len1 {
-        if &s1[i..i + 1] != &s2[i..i + 1] {
-            dist += 1;
+    let mut s1 = s1.chars();
+    let mut s2 = s2.chars();
+    loop {
+        match (s1.next(), s2.next()) {
+            (Some(c1), Some(c2)) if c1 != c2 => distance += 1,
+            (Some(_), None) | (None, Some(_)) => return None,
+            (None, None) => break,
+            _ => {}
         }
     }
 
-    Some(dist)
+    Some(distance)
 }
