@@ -1,39 +1,18 @@
 use std::collections::HashMap;
 
 pub fn count(nucleotide: char, dna: &str) -> Result<usize, char> {
-    if !"ACGT".contains(nucleotide) {
-        return Err(nucleotide);
-    }
-
-    let mut count = 0;
-    for c in dna.chars() {
-        match c {
-            'A' | 'C' | 'G' | 'T' => {
-                if nucleotide == c {
-                    count += 1;
-                }
-            }
-            _ => return Err(c),
-        }
-    }
-
-    Ok(count)
+    let mut result = nucleotide_counts(dna)?;
+    result.remove(&nucleotide).ok_or(nucleotide)
 }
 
 pub fn nucleotide_counts(dna: &str) -> Result<HashMap<char, usize>, char> {
-    let mut map = HashMap::with_capacity(4);
-    map.insert('A', 0);
-    map.insert('C', 0);
-    map.insert('G', 0);
-    map.insert('T', 0);
+    let mut map = ['A', 'C', 'G', 'T']
+        .into_iter()
+        .map(|c| (c, 0))
+        .collect::<HashMap<char, usize>>();
 
     for c in dna.chars() {
-        match c {
-            'A' | 'C' | 'G' | 'T' => {
-                map.entry(c).and_modify(|v| *v += 1).or_insert(0);
-            }
-            _ => return Err(c),
-        }
+        map.get_mut(&c).map(|v| *v += 1).ok_or(c)?
     }
 
     Ok(map)
