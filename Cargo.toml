@@ -37,6 +37,7 @@ members = [
     "hamming",                        # 35 medium
     "isbn-verifier",                  # 36 medium
     "isogram",                        # 37 medium
+    "nucleotide-count",               # 38 medium
 ]
 resolver = "2"
 
