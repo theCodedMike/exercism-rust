@@ -135,6 +135,10 @@ name = "paasio"
 version = "0.0.0"
 
 [[package]]
+name = "palindrome-products"
+version = "1.2.0"
+
+[[package]]
 name = "parallel-letter-frequency"
 version = "0.0.0"
 
