@@ -38,6 +38,7 @@ members = [
     "isbn-verifier",                  # 36 medium
     "isogram",                        # 37 medium
     "nucleotide-count",               # 38 medium
+    "paasio",                         # 39 medium
 ]
 resolver = "2"
 
