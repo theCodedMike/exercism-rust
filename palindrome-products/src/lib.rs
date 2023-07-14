@@ -26,32 +26,65 @@ pub fn palindrome_products(min: u64, max: u64) -> Option<(Palindrome, Palindrome
         return None;
     }
 
-    let smallest_product = min * min;
-    let largest_product = max * max;
+    let mut start = min * min;
+    let mut end = max * max;
+    let mut smallest_palindrome_product = 0;
+    let mut largest_palindrome_product = 0;
+    let mut find_smalest_palindrome = false;
+    let mut find_largest_palindrome = false;
+    while start <= end {
+        process_one_slide(
+            &mut find_smalest_palindrome,
+            &mut start,
+            &mut smallest_palindrome_product,
+            true,
+            min,
+            max,
+        );
 
-    let mut smallest_palindrome = 0;
-    for v in smallest_product..=largest_product {
-        if is_palindrome(v) && is_divide_exactly(v, min, max) {
-            smallest_palindrome = v;
+        process_one_slide(
+            &mut find_largest_palindrome,
+            &mut end,
+            &mut largest_palindrome_product,
+            false,
+            min,
+            max,
+        );
+
+        if find_smalest_palindrome && find_largest_palindrome {
             break;
         }
     }
 
-    let mut largest_palindrome = 0;
-    for v in (smallest_product..=largest_product).rev() {
-        if is_palindrome(v) && is_divide_exactly(v, min, max) {
-            largest_palindrome = v;
-            break;
-        }
-    }
-
-    if smallest_palindrome != 0 && largest_palindrome != 0 {
+    if find_smalest_palindrome && find_largest_palindrome {
         Some((
-            Palindrome(smallest_palindrome),
-            Palindrome(largest_palindrome),
+            Palindrome(smallest_palindrome_product),
+            Palindrome(largest_palindrome_product),
         ))
     } else {
         None
+    }
+}
+
+fn process_one_slide(
+    find_palindrome: &mut bool,
+    value: &mut u64,
+    palindrome_product: &mut u64,
+    is_start: bool,
+    min: u64,
+    max: u64,
+) {
+    if !(*find_palindrome) {
+        if is_palindrome(*value) && is_divide_exactly(*value, min, max) {
+            *find_palindrome = true;
+            *palindrome_product = *value;
+        } else {
+            if is_start {
+                *value += 1;
+            } else {
+                *value -= 1;
+            }
+        }
     }
 }
 
@@ -61,8 +94,7 @@ fn is_palindrome(mut value: u64) -> bool {
 
     let mut right_half = 0;
     for _ in 0..(len / 2) {
-        let rem = value % 10;
-        right_half = right_half * 10 + rem;
+        right_half = right_half * 10 + value % 10;
         value /= 10;
     }
 
