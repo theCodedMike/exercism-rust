@@ -40,6 +40,7 @@ members = [
     "nucleotide-count",               # 38 medium
     "paasio",                         # 39 medium
     "palindrome-products",            # 40 medium
+    "pangram",                        # 41 medium
 ]
 resolver = "2"
 
