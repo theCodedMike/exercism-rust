@@ -41,6 +41,7 @@ members = [
     "paasio",                         # 39 medium
     "palindrome-products",            # 40 medium
     "pangram",                        # 41 medium
+    "pascals-triangle",               # 42 medium
 ]
 resolver = "2"
 
