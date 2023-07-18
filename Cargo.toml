@@ -42,6 +42,7 @@ members = [
     "palindrome-products",            # 40 medium
     "pangram",                        # 41 medium
     "pascals-triangle",               # 42 medium
+    "perfect-numbers",                # 43 medium
 ]
 resolver = "2"
 
