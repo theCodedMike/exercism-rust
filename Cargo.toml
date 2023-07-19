@@ -43,6 +43,7 @@ members = [
     "pangram",                        # 41 medium
     "pascals-triangle",               # 42 medium
     "perfect-numbers",                # 43 medium
+    "pig-latin",                      # 44 medium
 ]
 resolver = "2"
 
