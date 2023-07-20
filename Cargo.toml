@@ -44,6 +44,7 @@ members = [
     "pascals-triangle",               # 42 medium
     "perfect-numbers",                # 43 medium
     "pig-latin",                      # 44 medium
+    "queen-attack",                   # 45 medium
 ]
 resolver = "2"
 
