@@ -47,6 +47,7 @@ members = [
     "queen-attack",                   # 45 medium
     "rna-transcription",              # 46 medium
     "run-length-encoding",            # 47 medium
+    "saddle-points",                  # 48 medium
 ]
 resolver = "2"
 
