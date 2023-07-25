@@ -49,6 +49,7 @@ members = [
     "run-length-encoding",            # 47 medium
     "saddle-points",                  # 48 medium
     "say",                            # 49 medium
+    "scrabble-score",                 # 50 medium
 ]
 resolver = "2"
 

@@ -202,6 +202,10 @@ name = "say"
 version = "1.2.0"
 
 [[package]]
+name = "scrabble-score"
+version = "1.1.0"
+
+[[package]]
 name = "serde"
 version = "1.0.163"
 source = "registry+https://github.com/rust-lang/crates.io-index"
