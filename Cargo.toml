@@ -50,6 +50,7 @@ members = [
     "saddle-points",                  # 48 medium
     "say",                            # 49 medium
     "scrabble-score",                 # 50 medium
+    "sieve",                          # 51 medium
 ]
 resolver = "2"
 
