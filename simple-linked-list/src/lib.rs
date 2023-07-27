@@ -1,5 +1,4 @@
 use std::iter::FromIterator;
-use std::marker::PhantomData;
 
 type NodeLink<T> = Option<Box<Node<T>>>;
 
@@ -16,16 +15,11 @@ impl<T> Node<T> {
 
 pub struct SimpleLinkedList<T> {
     head: NodeLink<T>,
-    // dummy is needed to avoid unused parameter error during compilation
-    dummy: PhantomData<T>,
 }
 
 impl<T> SimpleLinkedList<T> {
     pub fn new() -> Self {
-        SimpleLinkedList {
-            head: None,
-            dummy: PhantomData,
-        }
+        SimpleLinkedList { head: None }
     }
 
     // You may be wondering why it's necessary to have is_empty()
@@ -67,15 +61,13 @@ impl<T> SimpleLinkedList<T> {
     #[must_use]
     pub fn rev(self) -> SimpleLinkedList<T> {
         let mut head = self.head;
-        let mut temp_vec = vec![];
+        let mut list = SimpleLinkedList::new();
+
         while let Some(node) = head {
-            temp_vec.push(node.data);
+            list.push(node.data);
             head = node.next;
         }
-        let mut list = SimpleLinkedList::new();
-        for v in temp_vec {
-            list.push(v);
-        }
+
         list
     }
 }
@@ -84,9 +76,8 @@ impl<T> FromIterator<T> for SimpleLinkedList<T> {
     fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
         let mut list = SimpleLinkedList::new();
 
-        let mut iter = iter.into_iter();
-        while let Some(v) = iter.next() {
-            list.push(v)
+        for item in iter {
+            list.push(item);
         }
 
         list
