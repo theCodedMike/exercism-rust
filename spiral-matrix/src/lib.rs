@@ -1,61 +1,20 @@
-pub fn spiral_matrix(size: u32) -> Vec<Vec<u32>> {
-    let mut size = size as usize;
-    let mut res = vec![vec![0; size]; size];
+use std::iter;
 
-    let iter_count = (size as f64 / 2.0).ceil() as usize;
-    let mut num = 1;
-    for i in 0..iter_count {
-        process_outer_layer(i, i, &mut res, &mut num, size);
+const VECTORS: [(isize, isize); 4] = [(1, 0), (0, 1), (-1, 0), (0, -1)];
 
-        if size <= 2 {
-            if size == 1 {
-                res[i][i] = num;
-            }
-            break;
-        }
+pub fn spiral_matrix(size: usize) -> Vec<Vec<u32>> {
+    let mut matrix = vec![vec![0; size]; size];
+    let mut movement = VECTORS.iter().cycle();
+    let (mut x, mut y, mut n) = (-1, 0, 1..);
 
-        size -= 2;
+    for (move_x, move_y) in iter::once(size)
+        .chain((1..size).rev().flat_map(|n| iter::repeat(n).take(2)))
+        .flat_map(|steps| iter::repeat(movement.next().unwrap()).take(steps))
+    {
+        x += move_x;
+        y += move_y;
+        matrix[y as usize][x as usize] = n.next().unwrap();
     }
 
-    res
-}
-
-fn process_outer_layer(
-    mut x: usize,
-    mut y: usize,
-    matrix: &mut Vec<Vec<u32>>,
-    num: &mut u32,
-    size: usize,
-) {
-    // left -> right
-    for _ in 1..size {
-        matrix[x][y] = *num;
-        *num += 1;
-        y += 1;
-    }
-
-    // top
-    //  ↓
-    // bottom
-    for _ in 1..size {
-        matrix[x][y] = *num;
-        *num += 1;
-        x += 1;
-    }
-
-    // left <- right
-    for _ in 1..size {
-        matrix[x][y] = *num;
-        *num += 1;
-        y -= 1;
-    }
-
-    // top
-    //  ↑
-    // bottom
-    for _ in 1..size {
-        matrix[x][y] = *num;
-        *num += 1;
-        x -= 1;
-    }
+    matrix
 }
