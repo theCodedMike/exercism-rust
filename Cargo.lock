@@ -224,6 +224,10 @@ name = "space-age"
 version = "1.2.0"
 
 [[package]]
+name = "spiral-matrix"
+version = "1.1.0"
+
+[[package]]
 name = "sublist"
 version = "0.0.0"
 

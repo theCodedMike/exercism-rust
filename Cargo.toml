@@ -52,6 +52,7 @@ members = [
     "scrabble-score",                 # 50 medium
     "sieve",                          # 51 medium
     "simple-linked-list",             # 52 medium
+    "spiral-matrix",                  # 53 medium
 ]
 resolver = "2"
 
