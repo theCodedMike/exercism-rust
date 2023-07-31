@@ -54,6 +54,7 @@ members = [
     "simple-linked-list",             # 52 medium
     "spiral-matrix",                  # 53 medium
     "tournament",                     # 54 medium
+    "triangle",                       # 55 medium
 ]
 resolver = "2"
 
