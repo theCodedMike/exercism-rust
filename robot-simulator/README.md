@@ -1,0 +1,74 @@
+# Robot Simulator
+
+Welcome to Robot Simulator on Exercism's Rust Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+Write a robot simulator.
+
+A robot factory's test facility needs a program to verify robot movements.
+
+The robots have three possible movements:
+
+- turn right
+- turn left
+- advance
+
+Robots are placed on a hypothetical infinite grid, facing a particular
+direction (north, east, south, or west) at a set of {x,y} coordinates,
+e.g., {3,8}, with coordinates increasing to the north and east.
+
+The robot then receives a number of instructions, at which point the
+testing facility verifies the robot's new position, and in which
+direction it is pointing.
+
+- The letter-string "RAALAL" means:
+  - Turn right
+  - Advance twice
+  - Turn left
+  - Advance once
+  - Turn left yet again
+- Say a robot starts at {7, 3} facing north. Then running this stream
+  of instructions should leave it at {9, 4} facing west.
+
+```text
+  5-|---|---|---|---|---|---|---|---|---|---|
+    |   |   |   |   |   |   |   |   |   |   |
+  4-|---|---|---|---|---|---|---|---|---x---|
+    |   |   |   |   |   |   |   |   |   |   |
+  3-|---|---|---|---|---|---|---x---|---|---|
+    |   |   |   |   |   |   |   |   |   |   |
+  2-|---|---|---|---|---|---|---|---|---|---|
+    |   |   |   |   |   |   |   |   |   |   |
+  1-|---|---|---|---|---|---|---|---|---|---|
+    |   |   |   |   |   |   |   |   |   |   |
+  0-|---|---|---|---|---|---|---|---|---|---|
+    0   1   2   3   4   5   6   7   8   9   10
+```
+
+## Source
+
+### Created by
+
+- @IanWhitney
+
+### Contributed to by
+
+- @ashleygwilliams
+- @coriolinus
+- @cwhakes
+- @efx
+- @ErikSchierboom
+- @IanWhitney
+- @lutostag
+- @nfiles
+- @petertseng
+- @rofrol
+- @stringparser
+- @xakon
+- @ZapAnton
+
+### Based on
+
+Inspired by an interview question at a famous company.

@@ -190,6 +190,10 @@ name = "rna-transcription"
 version = "1.0.0"
 
 [[package]]
+name = "robot-simulator"
+version = "2.2.0"
+
+[[package]]
 name = "run-length-encoding"
 version = "1.1.0"
 
