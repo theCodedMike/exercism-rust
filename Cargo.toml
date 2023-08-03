@@ -58,6 +58,7 @@ members = [
     "two-bucket",                     # 56 medium
     "variable-length-quantity",       # 57 medium
     "robot-simulator",                # 58 medium
+    "robot-name",                     # 59 medium
 ]
 resolver = "2"
 
