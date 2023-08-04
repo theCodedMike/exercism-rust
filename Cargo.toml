@@ -59,6 +59,8 @@ members = [
     "variable-length-quantity",       # 57 medium
     "robot-simulator",                # 58 medium
     "robot-name",                     # 59 medium
+    "protein-translation",            # 60 medium
+
 ]
 resolver = "2"
 
