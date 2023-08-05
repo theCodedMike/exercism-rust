@@ -60,6 +60,7 @@ members = [
     "robot-simulator",                # 58 medium
     "robot-name",                     # 59 medium
     "protein-translation",            # 60 medium
+    "ocr-numbers",                    # 61 hard
 
 ]
 resolver = "2"
