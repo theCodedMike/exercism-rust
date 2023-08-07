@@ -61,6 +61,7 @@ members = [
     "robot-name",                     # 59 medium
     "protein-translation",            # 60 medium
     "ocr-numbers",                    # 61 hard
+    "react",                          # 62 hard
 
 ]
 resolver = "2"
