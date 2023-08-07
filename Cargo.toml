@@ -62,6 +62,7 @@ members = [
     "protein-translation",            # 60 medium
     "ocr-numbers",                    # 61 hard
     "react",                          # 62 hard
+    "wordy",                          # 63 medium
 
 ]
 resolver = "2"
