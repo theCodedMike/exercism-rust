@@ -65,6 +65,7 @@ members = [
     "wordy",                          # 63 medium
     "custom-set",                     # 64 medium
     "circular-buffer",                # 65 hard
+    "rectangles",                     # 66 hard
 
 ]
 resolver = "2"
