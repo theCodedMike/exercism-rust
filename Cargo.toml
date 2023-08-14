@@ -68,6 +68,7 @@ members = [
     "rectangles",                     # 66 hard
     "collatz-conjecture",             # 67 easy
     "diffie-hellman",                 # 68 easy
+    "series",                         # 69 easy
 
 ]
 resolver = "2"
