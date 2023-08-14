@@ -1,3 +1,5 @@
+use std::ops::Index;
+
 pub fn series(digits: &str, len: usize) -> Vec<String> {
     let str_len = digits.len();
     if len == 0 {
@@ -7,9 +9,11 @@ pub fn series(digits: &str, len: usize) -> Vec<String> {
         return vec![];
     }
 
-    digits
-        .as_bytes()
-        .windows(len)
-        .map(|w| String::from_utf8_lossy(w).to_string())
-        .collect::<Vec<_>>()
+    let mut res = vec![];
+    for end in len..=str_len {
+        let begin = end - len;
+        res.push(digits.index(begin..end).to_string());
+    }
+
+    res
 }
