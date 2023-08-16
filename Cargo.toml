@@ -69,6 +69,7 @@ members = [
     "collatz-conjecture",             # 67 easy
     "diffie-hellman",                 # 68 easy
     "series",                         # 69 easy
+    "accumulate",                     # 70 medium
 
 ]
 resolver = "2"
