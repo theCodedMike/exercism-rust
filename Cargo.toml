@@ -71,6 +71,7 @@ members = [
     "series",                         # 69 easy
     "accumulate",                     # 70 medium
     "affine-cipher",                  # 71 medium
+    "crypto-square",                  # 72 medium
 
 ]
 resolver = "2"
