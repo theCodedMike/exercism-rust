@@ -70,6 +70,7 @@ members = [
     "diffie-hellman",                 # 68 easy
     "series",                         # 69 easy
     "accumulate",                     # 70 medium
+    "affine-cipher",                  # 71 medium
 
 ]
 resolver = "2"
