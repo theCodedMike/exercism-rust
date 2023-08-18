@@ -1,45 +1,51 @@
-const CHAR_MAPS: [char; 26] = [
-    'z', 'y', 'x', 'w', 'v', 'u', 't', 's', 'r', 'q', 'p', 'o', 'n', 'm', 'l', 'k', 'j', 'i', 'h',
-    'g', 'f', 'e', 'd', 'c', 'b', 'a',
+const CHAR_MAPS: [u8; 26] = [
+    b'z', b'y', b'x', b'w', b'v', b'u', b't', b's', b'r', b'q', b'p', b'o', b'n', b'm', b'l', b'k',
+    b'j', b'i', b'h', b'g', b'f', b'e', b'd', b'c', b'b', b'a',
 ];
 
 /// "Encipher" with the Atbash cipher.
 pub fn encode(plain: &str) -> String {
-    let mut res = "".to_string();
-
-    let mut count = 0;
-    for mut c in plain.chars() {
-        if c.is_ascii_alphanumeric() {
-            count += 1;
-
-            if count > 1 && count % 5 == 1 {
-                res.push(' ');
-            }
-
-            if c.is_ascii_alphabetic() {
-                if c.is_ascii_uppercase() {
-                    c = c.to_ascii_lowercase();
+    plain
+        .bytes()
+        .filter_map(|mut c| {
+            if c.is_ascii_alphanumeric() {
+                if c.is_ascii_alphabetic() {
+                    if c.is_ascii_uppercase() {
+                        // uppercase
+                        c = c.to_ascii_lowercase();
+                    }
+                    Some(CHAR_MAPS[(c - 97_u8) as usize])
+                } else {
+                    // digit
+                    Some(c)
                 }
-                res.push(CHAR_MAPS[(c as u8 - 97) as usize]);
             } else {
-                res.push(c);
+                // non-alphanumeric
+                None
             }
-        }
-    }
-
-    res
+        })
+        .collect::<Vec<_>>()
+        .chunks(5)
+        .map(|c| String::from_utf8_lossy(c).to_string())
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 /// "Decipher" with the Atbash cipher.
 pub fn decode(cipher: &str) -> String {
     cipher
-        .chars()
-        .filter(|c| c.is_ascii_alphanumeric())
-        .map(|c| {
-            if c.is_ascii_alphabetic() {
-                CHAR_MAPS[(c as u8 - 97) as usize]
+        .bytes()
+        .filter_map(|c| {
+            if c.is_ascii_alphanumeric() {
+                if c.is_ascii_alphabetic() {
+                    Some(CHAR_MAPS[(c - 97_u8) as usize] as char)
+                } else {
+                    // digit
+                    Some(c as char)
+                }
             } else {
-                c
+                // non-alphanumeric
+                None
             }
         })
         .collect()
