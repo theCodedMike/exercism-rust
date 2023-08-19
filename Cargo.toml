@@ -73,6 +73,7 @@ members = [
     "affine-cipher",                  # 71 medium
     "crypto-square",                  # 72 medium
     "atbash-cipher",                  # 73 medium
+    "diamond",                        # 74 medium
 
 ]
 resolver = "2"
