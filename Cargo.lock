@@ -171,6 +171,10 @@ name = "luhn"
 version = "1.6.1"
 
 [[package]]
+name = "luhn-from"
+version = "0.0.0"
+
+[[package]]
 name = "macros"
 version = "0.1.0"
 

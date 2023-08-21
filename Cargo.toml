@@ -75,6 +75,7 @@ members = [
     "atbash-cipher",                  # 73 medium
     "diamond",                        # 74 medium
     "largest-series-product",         # 75 medium
+    "luhn-from",                      # 76 medium
 
 ]
 resolver = "2"
