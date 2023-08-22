@@ -76,6 +76,7 @@ members = [
     "diamond",                        # 74 medium
     "largest-series-product",         # 75 medium
     "luhn-from",                      # 76 medium
+    "luhn-trait",                     # 77 medium
 
 ]
 resolver = "2"
