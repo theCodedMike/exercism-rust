@@ -10,50 +10,26 @@ impl RailFence {
     }
 
     pub fn encode(&self, text: &str) -> String {
-        let text = text.chars().collect::<Vec<_>>();
-        let rows = self.rails;
-        let total_len = text.len();
-        let mut res = "".to_string();
-        let cycle_width = (rows - 1) * 2;
-
-        for idx in 0..rows {
-            let mut start = idx;
-            let mut step = idx * 2;
-            while start < total_len {
-                res.push(text[start]);
-                step = cycle_width - step;
-                if step == 0 {
-                    step = cycle_width;
-                }
-                start += step;
-            }
+        let mut result = vec![Vec::new(); self.rails];
+        for (c, i) in text.chars().zip(zigzag(self.rails)) {
+            result[i].push(c);
         }
-
-        res
+        result.iter().flat_map(|c| c).collect::<String>()
     }
 
     pub fn decode(&self, cipher: &str) -> String {
-        let rows = self.rails;
-        let cipher = cipher.chars().collect::<Vec<_>>();
-        let total_len = cipher.len();
-        let mut res = vec![' '; total_len];
-        let cycle_width = (rows - 1) * 2;
-
-        let mut c_idx = 0;
-        for i in 0..rows {
-            let mut start = i;
-            let mut step = i * 2;
-            while start < total_len {
-                res[start] = cipher[c_idx];
-                c_idx += 1;
-                step = cycle_width - step;
-                if step == 0 {
-                    step = cycle_width;
-                }
-                start += step;
-            }
-        }
-
-        res.into_iter().collect()
+        let mut indexes: Vec<_> = zigzag(self.rails).zip(1..).take(cipher.len()).collect();
+        indexes.sort();
+        let mut char_with_index: Vec<_> = cipher
+            .chars()
+            .zip(indexes)
+            .map(|(c, (_, i))| (i, c))
+            .collect();
+        char_with_index.sort();
+        char_with_index.iter().map(|(_, c)| c).collect()
     }
+}
+
+fn zigzag(n: usize) -> impl Iterator<Item = usize> {
+    (0..n - 1).chain((1..n).rev()).cycle()
 }
