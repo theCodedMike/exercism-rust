@@ -79,6 +79,7 @@ members = [
     "luhn-trait",                     # 77 medium
     "phone-number",                   # 78 medium
     "rail-fence-cipher",              # 79 medium
+    "roman-numerals",                 # 80 medium
 
 ]
 resolver = "2"
