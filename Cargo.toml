@@ -80,6 +80,8 @@ members = [
     "phone-number",                   # 78 medium
     "rail-fence-cipher",              # 79 medium
     "roman-numerals",                 # 80 medium
+    "rotational-cipher",              # 81 medium
+
 
 ]
 resolver = "2"

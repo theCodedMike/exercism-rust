@@ -339,6 +339,10 @@ name = "roman-numerals"
 version = "1.0.0"
 
 [[package]]
+name = "rotational-cipher"
+version = "1.0.0"
+
+[[package]]
 name = "run-length-encoding"
 version = "1.1.0"
 
