@@ -81,6 +81,7 @@ members = [
     "rail-fence-cipher",              # 79 medium
     "roman-numerals",                 # 80 medium
     "rotational-cipher",              # 81 medium
+    "simple-cipher",                  # 82 medium
 
 
 ]
