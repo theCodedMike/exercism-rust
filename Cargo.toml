@@ -82,6 +82,7 @@ members = [
     "roman-numerals",                 # 80 medium
     "rotational-cipher",              # 81 medium
     "simple-cipher",                  # 82 medium
+    "word-count",                     # 83 medium
 
 
 ]
