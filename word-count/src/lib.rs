@@ -2,23 +2,13 @@ use std::collections::HashMap;
 
 /// Count occurrences of words.
 pub fn word_count(words: &str) -> HashMap<String, u32> {
-    let mut map = HashMap::new();
-
-    for mut word in words.split(&[' ', ',', '\n', ':', '!', '&', '@', '$', '%', '^', '.']) {
-        if word.is_empty() {
-            continue;
-        }
-        if word.starts_with("'") {
-            word = word.strip_prefix("'").unwrap();
-        }
-        if word.ends_with("'") {
-            word = word.strip_suffix("'").unwrap();
-        }
-
-        map.entry(word.to_ascii_lowercase())
-            .and_modify(|count| *count += 1)
-            .or_insert(1);
-    }
-
-    map
+    words
+        .split(|c: char| !c.is_alphanumeric() && c != '\'')
+        .filter(|w| !w.is_empty())
+        .map(|w| w.trim_matches('\'').to_lowercase())
+        .fold(HashMap::new(), |mut acc, w| {
+            let pt = acc.entry(w).or_insert(0);
+            *pt += 1;
+            acc
+        })
 }
