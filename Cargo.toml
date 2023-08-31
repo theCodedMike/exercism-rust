@@ -83,6 +83,7 @@ members = [
     "rotational-cipher",              # 81 medium
     "simple-cipher",                  # 82 medium
     "word-count",                     # 83 medium
+    "fizzy",                          # 84 medium
 
 
 ]

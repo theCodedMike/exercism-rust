@@ -107,6 +107,10 @@ name = "etl"
 version = "1.0.0"
 
 [[package]]
+name = "fizzy"
+version = "0.0.0"
+
+[[package]]
 name = "forth"
 version = "1.7.0"
 
