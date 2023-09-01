@@ -84,6 +84,7 @@ members = [
     "simple-cipher",                  # 82 medium
     "word-count",                     # 83 medium
     "fizzy",                          # 84 medium
+    "pythagorean-triplet",            # 85 medium
 
 
 ]
