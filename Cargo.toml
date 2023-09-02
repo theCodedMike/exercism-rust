@@ -85,7 +85,7 @@ members = [
     "word-count",                     # 83 medium
     "fizzy",                          # 84 medium
     "pythagorean-triplet",            # 85 medium
-
+    "xorcism",                        # 86 hard
 
 ]
 resolver = "2"
