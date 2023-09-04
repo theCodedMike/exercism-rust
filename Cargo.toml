@@ -87,6 +87,7 @@ members = [
     "pythagorean-triplet",            # 85 medium
     "xorcism",                        # 86 hard
     "book-store",                     # 87 medium
+    "decimal",                        # 88 medium
 
 
 ]
