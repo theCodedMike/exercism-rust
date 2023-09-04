@@ -86,6 +86,8 @@ members = [
     "fizzy",                          # 84 medium
     "pythagorean-triplet",            # 85 medium
     "xorcism",                        # 86 hard
+    "book-store",                     # 87 medium
+
 
 ]
 resolver = "2"
