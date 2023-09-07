@@ -89,6 +89,7 @@ members = [
     "book-store",                     # 87 medium
     "decimal",                        # 88 medium
     "grep",                           # 89 medium
+    "scale-generator",                # 90 medium
 ]
 resolver = "2"
 
