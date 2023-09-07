@@ -90,6 +90,7 @@ members = [
     "decimal",                        # 88 medium
     "grep",                           # 89 medium
     "scale-generator",                # 90 medium
+    "dominoes",                       # 91 hard
 ]
 resolver = "2"
 
