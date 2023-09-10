@@ -92,6 +92,7 @@ members = [
     "scale-generator",                # 90 medium
     "dominoes",                       # 91 hard
     "doubly-linked-list",             # 92 hard
+    "secret-handshake",               # 93 medium
 
 ]
 resolver = "2"
