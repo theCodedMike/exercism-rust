@@ -93,6 +93,7 @@ members = [
     "dominoes",                       # 91 hard
     "doubly-linked-list",             # 92 hard
     "secret-handshake",               # 93 medium
+    "knapsack",                       # 94 medium
 
 ]
 resolver = "2"
