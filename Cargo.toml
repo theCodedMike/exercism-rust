@@ -94,7 +94,7 @@ members = [
     "doubly-linked-list",             # 92 hard
     "secret-handshake",               # 93 medium
     "knapsack",                       # 94 medium
-
+    "kindergarten-garden",            # 95 easy
 ]
 resolver = "2"
 
