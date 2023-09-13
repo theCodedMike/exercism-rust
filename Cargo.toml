@@ -95,6 +95,7 @@ members = [
     "secret-handshake",               # 93 medium
     "knapsack",                       # 94 medium
     "kindergarten-garden",            # 95 easy
+    "yacht",                          # 96 medium
 ]
 resolver = "2"
 
